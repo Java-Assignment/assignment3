@@ -1,10 +1,7 @@
 package com.abhi.assignment3;
 
 
-import com.abhi.assignment3.entity.AccountEnrichment;
-import com.abhi.assignment3.entity.AccountStatus;
-import com.abhi.assignment3.entity.AccountType;
-import com.abhi.assignment3.entity.AddAccountEnrichment;
+import com.abhi.assignment3.entity.*;
 import com.abhi.assignment3.repository.AccountEnrichmentRepo;
 import com.abhi.assignment3.service.AccountEnrichmentService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -89,11 +86,11 @@ public class TestAccountEnrichment {
                 .andDo(print())
                 .andReturn();
         String contentAsString=mvcResult.getResponse().getContentAsString();
-        AccountEnrichment accountEnrichment=objectMapper.readValue(contentAsString, AccountEnrichment.class);
+        AccountResponse accountResponse=objectMapper.readValue(contentAsString,AccountResponse.class);
 
 
         Assertions.assertAll(
-                ()->Assertions.assertEquals(testAddAc.getAccountID(),accountEnrichment.getAccountID())
+                ()->Assertions.assertEquals(testAddAc.getAccountStatus(),accountResponse.getAccountStatus())
 
         );
 
