@@ -10,6 +10,7 @@ import com.abhi.assignment3.service.AccountEnrichmentService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Slf4j
 public class TestAccountEnrichment {
     @Autowired
     AccountEnrichmentRepo accountEnrichmentRepo;
@@ -72,12 +74,13 @@ public class TestAccountEnrichment {
     @Test
     @DisplayName("Add account Test ")
     void testAddAccount() throws Exception {
-        accountEnrichmentService.add(testAddAc);
+        AccountEnrichment dbac=accountEnrichmentService.add(testAddAc);
         accountEnrichmentService.add(testAddAc1);
         accountEnrichmentService.add(testAddAc2);
+        String accId= dbac.getAccountID();
 
         MvcResult mvcResult = mockMvc.perform(
-                        get("/customeraccounts"+"?accountID=000000000001")
+                        get("/customeraccounts"+"/"+accId)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .accept(MediaType.APPLICATION_JSON_VALUE)
 
@@ -85,14 +88,14 @@ public class TestAccountEnrichment {
                 )
                 .andDo(print())
                 .andReturn();
-
-
-
         String contentAsString=mvcResult.getResponse().getContentAsString();
-        List<AddAccountEnrichment> accountDTOs=objectMapper.readValue(contentAsString, new TypeReference<>() {
-        });
+        AccountEnrichment accountEnrichment=objectMapper.readValue(contentAsString, AccountEnrichment.class);
 
-        Assertions.assertEquals(1,accountDTOs.size());
+
+        Assertions.assertAll(
+                ()->Assertions.assertEquals(testAddAc.getAccountID(),accountEnrichment.getAccountID())
+
+        );
 
     }
 
