@@ -2,6 +2,7 @@ package com.abhi.assignment3.controller;
 
 
 import com.abhi.assignment3.entity.AccountEnrichment;
+import com.abhi.assignment3.entity.AccountResponse;
 import com.abhi.assignment3.exception.AppAccountNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,6 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface AccountController {
     @GetMapping("/{accountID}")
     @Operation(summary = "get account details based on account id")
-    ResponseEntity<AccountEnrichment> getAccountEnrichment(@PathVariable(value = "accountID") String accountID) throws AppAccountNotFoundException;
+    ResponseEntity<AccountResponse> getAccountEnrichment(@PathVariable(value = "accountID") String accountID) throws AppAccountNotFoundException;
 
 }

@@ -1,6 +1,7 @@
 package com.abhi.assignment3.controller;
 
 import com.abhi.assignment3.entity.AccountEnrichment;
+import com.abhi.assignment3.entity.AccountResponse;
 import com.abhi.assignment3.exception.AppAccountNotFoundException;
 import com.abhi.assignment3.service.AccountEnrichmentService;
 import com.abhi.assignment3.service.AccountEnrichmentServiceImpl;
@@ -18,8 +19,8 @@ public class AccountControllerImpl implements  AccountController{
 
 
     @Override
-    public ResponseEntity<AccountEnrichment> getAccountEnrichment(String accountID) throws AppAccountNotFoundException {
-        AccountEnrichment acc=  accountEnrichment.getByAccountID(accountID);
+    public ResponseEntity<AccountResponse> getAccountEnrichment(String accountID) throws AppAccountNotFoundException {
+        AccountResponse acc=  accountEnrichment.getByAccountID(accountID);
         return new ResponseEntity<>(acc, HttpStatus.OK);
     }
 }
