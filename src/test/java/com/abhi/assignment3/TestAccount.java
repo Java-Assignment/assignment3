@@ -1,8 +1,11 @@
 package com.abhi.assignment3;
 
 
-import com.abhi.assignment3.entity.*;
+import com.abhi.assignment3.common.AccountStatus;
+import com.abhi.assignment3.common.AccountType;
+import com.abhi.assignment3.dto.AccountDTO;
 import com.abhi.assignment3.repository.AccountEnrichmentRepo;
+import com.abhi.assignment3.save.entity.Account;
 import com.abhi.assignment3.service.AccountEnrichmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -24,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Slf4j
-public class TestAccountEnrichment {
+public class TestAccount {
     @Autowired
     AccountEnrichmentRepo accountEnrichmentRepo;
 
@@ -32,25 +35,25 @@ public class TestAccountEnrichment {
     @Autowired
     MockMvc mockMvc;
 
-    private AddAccountEnrichment testAddAc;
-    private AddAccountEnrichment testAddAc1;
-    private AddAccountEnrichment testAddAc2;
+    private Account testAddAc;
+    private Account testAddAc1;
+    private Account testAddAc2;
     @Autowired
     AccountEnrichmentService accountEnrichmentService;
 
 
     @BeforeEach
     void setup() {
-        testAddAc = new AddAccountEnrichment();
-        testAddAc.setAccountID("000000000001");
+        testAddAc = new Account();
+        testAddAc.setAccountId("000000000001");
         testAddAc.setAccountStatus(AccountStatus.ACTIVE);
         testAddAc.setAccountType(AccountType.HNI);
-        testAddAc1 = new AddAccountEnrichment();
-        testAddAc1.setAccountID("000000000002");
+        testAddAc1 = new Account();
+        testAddAc1.setAccountId("000000000002");
         testAddAc1.setAccountStatus(AccountStatus.ACTIVE);
         testAddAc1.setAccountType(AccountType.WEALTH);
-        testAddAc2 = new AddAccountEnrichment();
-        testAddAc2.setAccountID("000000000003");
+        testAddAc2 = new Account();
+        testAddAc2.setAccountId("000000000003");
         testAddAc2.setAccountStatus(AccountStatus.INACTIVE);
         testAddAc2.setAccountType(AccountType.NORMAL);
 
@@ -62,14 +65,14 @@ public class TestAccountEnrichment {
 
     @Test
     @DisplayName("Add account Test ")
-    void testAddAccount() throws Exception {
-        AccountEnrichment dbac = accountEnrichmentService.add(testAddAc);
+    void testAccount() throws Exception {
+        Account dbac = accountEnrichmentService.add(testAddAc);
         accountEnrichmentService.add(testAddAc1);
         accountEnrichmentService.add(testAddAc2);
-        String accId = dbac.getAccountID();
+        String accId = dbac.getAccountId();
 
         MvcResult mvcResult = mockMvc.perform(
-                        get("/customeraccounts" + "/" + accId)
+                        get("/accounts" + "/" + accId)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .accept(MediaType.APPLICATION_JSON_VALUE)
 
@@ -78,11 +81,11 @@ public class TestAccountEnrichment {
                 .andDo(print())
                 .andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
-        AccountResponse accountResponse = objectMapper.readValue(contentAsString, AccountResponse.class);
+        AccountDTO accountDTO = objectMapper.readValue(contentAsString, AccountDTO.class);
 
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(testAddAc.getAccountStatus(), accountResponse.getAccountStatus())
+                () -> Assertions.assertEquals(testAddAc.getAccountStatus(), accountDTO.getAccountStatus())
 
         );
 

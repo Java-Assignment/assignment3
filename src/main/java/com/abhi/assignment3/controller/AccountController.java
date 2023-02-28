@@ -1,7 +1,7 @@
 package com.abhi.assignment3.controller;
 
 
-import com.abhi.assignment3.entity.AccountResponse;
+import com.abhi.assignment3.dto.AccountDTO;
 import com.abhi.assignment3.exception.AppAccountNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(value = "/customeraccounts", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+@RequestMapping(value = "/accounts", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 @Validated
-@Tag(name = "customer accounts api", description = "api operations for customer account")
+@Tag(name = "accounts api", description = "api operations for account")
 public interface AccountController {
-    @GetMapping("/{accountID}")
+    @GetMapping("/{accountId}")
     @Operation(summary = "get account details based on account id")
-    ResponseEntity<AccountResponse> getAccountEnrichment(@PathVariable(value = "accountID") String accountID) throws AppAccountNotFoundException;
+    ResponseEntity<AccountDTO> getAccount(@PathVariable(value = "accountId") String accountId) throws AppAccountNotFoundException;
 
 }

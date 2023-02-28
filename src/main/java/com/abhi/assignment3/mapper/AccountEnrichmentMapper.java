@@ -1,15 +1,12 @@
 package com.abhi.assignment3.mapper;
 
-import com.abhi.assignment3.entity.AccountEnrichment;
-import com.abhi.assignment3.entity.AccountResponse;
-import com.abhi.assignment3.entity.AddAccountEnrichment;
+import com.abhi.assignment3.save.entity.Account;
+import com.abhi.assignment3.dto.AccountDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AccountEnrichmentMapper {
 
 
-    AccountEnrichment convertAddAcToAe(AddAccountEnrichment addAccountEnrichment);
-
-    AccountResponse convertAcToAr(AccountEnrichment account);
+    AccountDTO convertAccountEntityToAccountDTO(Account account);
 }

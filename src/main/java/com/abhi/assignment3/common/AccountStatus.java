@@ -1,4 +1,4 @@
-package com.abhi.assignment3.entity;
+package com.abhi.assignment3.common;
 
 public enum AccountStatus {
     ACTIVE, INACTIVE;

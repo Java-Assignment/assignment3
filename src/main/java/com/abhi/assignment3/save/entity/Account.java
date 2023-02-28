@@ -1,5 +1,7 @@
-package com.abhi.assignment3.entity;
+package com.abhi.assignment3.save.entity;
 
+import com.abhi.assignment3.common.AccountStatus;
+import com.abhi.assignment3.common.AccountType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -11,9 +13,10 @@ import java.time.LocalDate;
 @Document(collection = "as3accounts")
 @Data
 @NoArgsConstructor
-public class AccountEnrichment {
+public class Account {
+
     @Id
-    private String accountID;
+    private String accountId;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate createDate;
 

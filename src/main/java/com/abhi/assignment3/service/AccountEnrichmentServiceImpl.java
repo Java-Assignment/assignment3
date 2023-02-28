@@ -1,8 +1,7 @@
 package com.abhi.assignment3.service;
 
-import com.abhi.assignment3.entity.AccountEnrichment;
-import com.abhi.assignment3.entity.AccountResponse;
-import com.abhi.assignment3.entity.AddAccountEnrichment;
+import com.abhi.assignment3.save.entity.Account;
+import com.abhi.assignment3.dto.AccountDTO;
 import com.abhi.assignment3.exception.AppAccountNotFoundException;
 import com.abhi.assignment3.mapper.AccountEnrichmentMapper;
 import com.abhi.assignment3.repository.AccountEnrichmentRepo;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 
@@ -24,21 +22,18 @@ public class AccountEnrichmentServiceImpl implements AccountEnrichmentService {
 
 
     @Override
-    public AccountEnrichment add(AddAccountEnrichment addAccountEnrichment) {
-        AccountEnrichment accountEnrichment = accountEnrichmentMapper.convertAddAcToAe(addAccountEnrichment);
-        accountEnrichment.setCreateDate(LocalDate.now());
-        AccountEnrichment newAc = accountsRepo.save(accountEnrichment);
+    public Account add(Account addAccount) {
+        Account newAc = accountsRepo.save(addAccount);
         return newAc;
 
     }
 
-    public AccountResponse getByAccountID(String accountID) throws AppAccountNotFoundException {
-        Optional<AccountEnrichment> db = accountsRepo.findByAccountID(accountID);
-        if (db.isPresent()) {
-            AccountEnrichment account = accountsRepo.findById(accountID).get();
-            AccountResponse ar = accountEnrichmentMapper.convertAcToAr(account);
-            return ar;
-
+    public AccountDTO getByAccountId(String accountID) throws AppAccountNotFoundException {
+        Optional<Account> accountOptional = accountsRepo.findByAccountId(accountID);
+        if (accountOptional.isPresent()) {
+            Account account = accountOptional.get();
+            AccountDTO accountDTO = accountEnrichmentMapper.convertAccountEntityToAccountDTO(account);
+            return accountDTO;
         } else {
             throw new AppAccountNotFoundException("Missing account. AC : " + accountID);
         }
