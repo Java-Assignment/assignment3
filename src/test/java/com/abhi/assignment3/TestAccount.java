@@ -4,9 +4,9 @@ package com.abhi.assignment3;
 import com.abhi.assignment3.common.AccountStatus;
 import com.abhi.assignment3.common.AccountType;
 import com.abhi.assignment3.dto.AccountDTO;
-import com.abhi.assignment3.repository.AccountEnrichmentRepo;
+import com.abhi.assignment3.repository.AccountRepo;
 import com.abhi.assignment3.save.entity.Account;
-import com.abhi.assignment3.service.AccountEnrichmentService;
+import com.abhi.assignment3.service.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @Slf4j
 public class TestAccount {
     @Autowired
-    AccountEnrichmentRepo accountEnrichmentRepo;
+    AccountRepo accountRepo;
 
     private ObjectMapper objectMapper;
     @Autowired
@@ -39,7 +39,7 @@ public class TestAccount {
     private Account testAddAc1;
     private Account testAddAc2;
     @Autowired
-    AccountEnrichmentService accountEnrichmentService;
+    AccountService accountService;
 
 
     @BeforeEach
@@ -66,9 +66,9 @@ public class TestAccount {
     @Test
     @DisplayName("Add account Test ")
     void testAccount() throws Exception {
-        Account dbac = accountEnrichmentService.add(testAddAc);
-        accountEnrichmentService.add(testAddAc1);
-        accountEnrichmentService.add(testAddAc2);
+        Account dbac = accountService.add(testAddAc);
+        accountService.add(testAddAc1);
+        accountService.add(testAddAc2);
         String accId = dbac.getAccountId();
 
         MvcResult mvcResult = mockMvc.perform(

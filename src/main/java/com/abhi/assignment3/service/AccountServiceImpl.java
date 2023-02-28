@@ -4,7 +4,7 @@ import com.abhi.assignment3.save.entity.Account;
 import com.abhi.assignment3.dto.AccountDTO;
 import com.abhi.assignment3.exception.AppAccountNotFoundException;
 import com.abhi.assignment3.mapper.AccountEnrichmentMapper;
-import com.abhi.assignment3.repository.AccountEnrichmentRepo;
+import com.abhi.assignment3.repository.AccountRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,9 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class AccountEnrichmentServiceImpl implements AccountEnrichmentService {
+public class AccountServiceImpl implements AccountService {
     @Autowired
-    private AccountEnrichmentRepo accountsRepo;
+    private AccountRepo accountsRepo;
     @Autowired
     private AccountEnrichmentMapper accountEnrichmentMapper;
 

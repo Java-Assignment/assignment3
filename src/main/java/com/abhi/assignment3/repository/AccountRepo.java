@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AccountEnrichmentRepo extends MongoRepository<Account, String> {
+public interface AccountRepo extends MongoRepository<Account, String> {
 
     Optional<Account> findByAccountId(String accountId);
 }
