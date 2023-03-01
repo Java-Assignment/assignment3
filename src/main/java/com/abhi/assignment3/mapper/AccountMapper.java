@@ -5,7 +5,7 @@ import com.abhi.assignment3.save.entity.Account;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface AccountEnrichmentMapper {
+public interface AccountMapper {
 
 
     AccountDTO convertAccountEntityToAccountDTO(Account account);

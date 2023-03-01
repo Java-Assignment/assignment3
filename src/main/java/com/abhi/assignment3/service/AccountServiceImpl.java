@@ -1,5 +1,6 @@
 package com.abhi.assignment3.service;
 
+import com.abhi.assignment3.mapper.AccountMapper;
 import com.abhi.assignment3.save.entity.Account;
 import com.abhi.assignment3.dto.AccountDTO;
 import com.abhi.assignment3.exception.AppAccountNotFoundException;
@@ -18,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepo accountsRepo;
     @Autowired
-    private AccountEnrichmentMapper accountEnrichmentMapper;
+    private AccountMapper accountMapper;
 
 
     @Override
@@ -32,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
         Optional<Account> accountOptional = accountsRepo.findByAccountId(accountID);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
-            AccountDTO accountDTO = accountEnrichmentMapper.convertAccountEntityToAccountDTO(account);
+            AccountDTO accountDTO = accountMapper.convertAccountEntityToAccountDTO(account);
             return accountDTO;
         } else {
             throw new AppAccountNotFoundException("Missing account. AC : " + accountID);
