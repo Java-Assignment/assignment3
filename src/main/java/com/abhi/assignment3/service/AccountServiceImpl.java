@@ -31,7 +31,6 @@ public class AccountServiceImpl implements AccountService {
     }
     @Override
     public AccountDTO getByAccountId(String accountID) throws AppAccountNotFoundException {
-//        accountsRepo.deleteAll();
         Optional<Account> accountOptional = accountsRepo.findByAccountId(accountID);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
