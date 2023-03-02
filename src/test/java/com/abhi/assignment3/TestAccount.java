@@ -21,6 +21,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalDate;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -48,14 +50,17 @@ public class TestAccount {
         testAddAc.setAccountId("000000000001");
         testAddAc.setAccountStatus(AccountStatus.ACTIVE);
         testAddAc.setAccountType(AccountType.HNI);
+        testAddAc.setCreateDate(LocalDate.now());
         testAddAc1 = new Account();
         testAddAc1.setAccountId("000000000002");
         testAddAc1.setAccountStatus(AccountStatus.ACTIVE);
         testAddAc1.setAccountType(AccountType.WEALTH);
+        testAddAc1.setCreateDate(LocalDate.now());
         testAddAc2 = new Account();
         testAddAc2.setAccountId("000000000003");
         testAddAc2.setAccountStatus(AccountStatus.INACTIVE);
         testAddAc2.setAccountType(AccountType.NORMAL);
+        testAddAc2.setCreateDate(LocalDate.now());
 
 
         objectMapper = new ObjectMapper();
