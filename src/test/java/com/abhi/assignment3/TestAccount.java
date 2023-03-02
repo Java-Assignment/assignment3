@@ -46,6 +46,8 @@ public class TestAccount {
 
     @BeforeEach
     void setup() {
+        accountService.deleteAll();
+
         testAddAc = new Account();
         testAddAc.setAccountId("000000000001");
         testAddAc.setAccountStatus(AccountStatus.ACTIVE);
