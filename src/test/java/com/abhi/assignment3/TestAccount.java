@@ -71,6 +71,7 @@ public class TestAccount {
     @Test
     @DisplayName("Add account Test ")
     void testAccount() throws Exception {
+        accountRepo.deleteAll();
         Account dbac = accountService.add(testAddAc);
         accountService.add(testAddAc1);
         accountService.add(testAddAc2);
