@@ -40,6 +40,8 @@ public class TestAccount {
     private Account testAddAc;
     private Account testAddAc1;
     private Account testAddAc2;
+    private Account testAddAc3;
+    private Account testAddAc4;
     @Autowired
     AccountService accountService;
 
@@ -61,6 +63,16 @@ public class TestAccount {
         testAddAc2.setAccountStatus(AccountStatus.INACTIVE);
         testAddAc2.setAccountType(AccountType.NORMAL);
         testAddAc2.setCreateDate(LocalDate.now());
+        testAddAc3 = new Account();
+        testAddAc3.setAccountId("000000000004");
+        testAddAc3.setAccountStatus(AccountStatus.ACTIVE);
+        testAddAc3.setAccountType(AccountType.WEALTH);
+        testAddAc3.setCreateDate(LocalDate.now());
+        testAddAc4 = new Account();
+        testAddAc4.setAccountId("000000000005");
+        testAddAc4.setAccountStatus(AccountStatus.ACTIVE);
+        testAddAc4.setAccountType(AccountType.WEALTH);
+        testAddAc4.setCreateDate(LocalDate.now());
 
 
         objectMapper = new ObjectMapper();
@@ -75,6 +87,8 @@ public class TestAccount {
         Account dbac = accountService.add(testAddAc);
         accountService.add(testAddAc1);
         accountService.add(testAddAc2);
+        accountService.add(testAddAc3);
+        accountService.add(testAddAc4);
         String accId = dbac.getAccountId();
 
         MvcResult mvcResult = mockMvc.perform(
